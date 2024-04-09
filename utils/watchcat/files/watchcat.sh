@@ -216,17 +216,10 @@ watchcat_ping() {
 		time_lastcheck="$time_now"
 
 		for host in $ping_hosts; do
-			if [ "$iface" != "" ]; then
-				ping_result="$(
-					ping $ping_family -I "$iface" -s "$ping_size" -c 1 "$host" &> /dev/null
-					echo $?
-				)"
-			else
-				ping_result="$(
-					ping $ping_family -s "$ping_size" -c 1 "$host" &> /dev/null
-					echo $?
-				)"
-			fi
+			ping_result="$(
+				ping $ping_family -s "$ping_size" -c 1 "$host" &> /dev/null
+				echo $?
+			)"
 
 			if [ "$ping_result" -eq 0 ]; then
 				time_lastcheck_withinternet="$time_now"
